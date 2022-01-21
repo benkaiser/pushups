@@ -1,0 +1,34 @@
+.mainContent {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  height: 100%;
+  display: flex;
+}
+html, body, #root {
+  height: 100%;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+}
+.clickSurface {
+  height: 100%;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  transition: background-color 0.8s;
+  background: var(--bs-primary) radial-gradient(circle, transparent 1%, var(--bs-primary) 1%) center / 10000000px;
+  color: var(--bs-white);
+  border-radius: 20px;
+  box-shadow: 0 0 4px var(--bs-gray-600);
+}
+.touching {
+  background-color: white !important;
+  background-size: 0%;
+  transition: background-color 0s;
+}
+.counter {
+  pointer-events: none;
+}
