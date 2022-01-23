@@ -48,3 +48,13 @@ html, body, #root {
   padding: 10px;
   pointer-events: none;
 }
+.navbar-nav .nav-link {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+a .btn {
+  text-decoration: none;
+}
+.shareImage {
+  border-radius: 5px;
+}
