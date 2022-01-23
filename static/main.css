@@ -19,11 +19,12 @@ html, body, #root {
   justify-content: center;
   align-items: center;
   background-position: center;
-  transition: background-color 0.3s;
+  transition: background-color 0.5s;
   background: var(--bs-primary) radial-gradient(circle, transparent 1%, var(--bs-primary) 1%) center / 10000000px;
   color: var(--bs-white);
   border-radius: 10px;
   box-shadow: 0 0 4px var(--bs-gray-600);
+  user-select: none;
 }
 .touching {
   background-color: white !important;

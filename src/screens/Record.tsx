@@ -6,7 +6,7 @@ import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import React from 'react';
 
-const DEBOUNCE_TIMEOUT = 300;
+const DEBOUNCE_TIMEOUT = 500;
 export default function Record() {
   const [count, setCount] = React.useState(0);
   const [touching, setTouching] = React.useState(false);
@@ -16,6 +16,7 @@ export default function Record() {
     recordPushups(count);
     navigate('/');
   }, [count]);
+  const touchingTimeout = React.useRef<number>();
 
   const completedPushups = getTodayCount() + count;
   const goal = getTodayGoal();
@@ -38,16 +39,16 @@ export default function Record() {
           if (ignore) {
             return;
           }
-          setTouching(true)
-        }}
-        onTouchEnd={() => {
-          if (ignore) {
-            return;
-          }
-          setTouching(false);
+          clearTimeout(touchingTimeout.current);
+          setTouching(true);
           setCount(count => count + 1);
           setIgnore(true);
           setTimeout(() => setIgnore(false), DEBOUNCE_TIMEOUT);
+          touchingTimeout.current = setTimeout(() => setTouching(false), DEBOUNCE_TIMEOUT);
+        }}
+        onTouchEnd={() => {
+          clearTimeout(touchingTimeout.current);
+          setTouching(false);
         }}
       >
         <div className='counter display-1'>{ count }</div>
