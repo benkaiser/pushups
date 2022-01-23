@@ -3,6 +3,7 @@
   padding-bottom: 16px;
   height: 100%;
   display: flex;
+  flex-direction: column;
 }
 html, body, #root {
   height: 100%;
@@ -18,10 +19,10 @@ html, body, #root {
   justify-content: center;
   align-items: center;
   background-position: center;
-  transition: background-color 0.8s;
+  transition: background-color 0.3s;
   background: var(--bs-primary) radial-gradient(circle, transparent 1%, var(--bs-primary) 1%) center / 10000000px;
   color: var(--bs-white);
-  border-radius: 20px;
+  border-radius: 10px;
   box-shadow: 0 0 4px var(--bs-gray-600);
 }
 .touching {
@@ -34,8 +35,16 @@ html, body, #root {
 }
 .saveBtn {
   position: absolute;
-  right: 4px;
-  border-radius: 50px;
+  right: 21px;
+  border-radius: 10px;
+  padding: 0px 5px;
+  margin-top: 9px;
+}
+.goalInfo {
+  position: absolute;
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 10px;
   padding: 10px;
-  margin-top: -12px;;
+  pointer-events: none;
 }

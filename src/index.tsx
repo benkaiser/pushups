@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import React from 'react';
+import React, { useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { Check } from 'react-bootstrap-icons';
 
@@ -13,6 +13,11 @@ interface IGoalData {
   goalStart: number;
   goalIncrease: number;
   startDay: number;
+}
+
+interface ILogData {
+  date: number;
+  numberOfPushups: number;
 }
 
 function readGoal(): IGoalData | undefined {
@@ -35,7 +40,7 @@ function setGoalData(goalData: Omit<IGoalData, 'startDay'>) {
   localStorage.setItem('goal', JSON.stringify({ ...goalData, startDay: startDay }));
 }
 
-function recordPushups(numberOfPushups): void {
+function recordPushups(numberOfPushups: number): void {
   addToLogData({date: +new Date(), numberOfPushups});
 }
 
@@ -51,11 +56,6 @@ function addToLogData(newLogData: ILogData) {
   const logData = readLogData();
   logData.push(newLogData);
   localStorage.setItem('logData', JSON.stringify(logData));
-}
-
-interface ILogData {
-  date: number,
-  numberOfPushups
 }
 
 function getTodayCount() {
@@ -104,11 +104,11 @@ function GoalRenderer() {
     <React.Fragment>
       <h1>Record Some Push Ups</h1>
       <TodayInfo />
-      {/* <p>
-        <Link to="/record"><Button variant="primary" size="lg">Record in Countdown Mode</Button></Link>
-      </p> */}
       <p>
-        <Link to="/record"><Button variant="primary" size="lg">Free Record (increasing counter)</Button></Link>
+        <Link className='d-flex' to="/record"><Button className='flex-grow-1' variant="primary" size="lg">Record Some Pushups</Button></Link>
+      </p>
+      <p>
+        <Link className='d-flex' to="/manual"><Button className='flex-grow-1' variant="primary" size="lg">Manual Entry</Button></Link>
       </p>
     </React.Fragment>
   );
@@ -153,11 +153,9 @@ const Home = function() {
   const [goal, setGoal] = React.useState(readGoal());
 
   return (
-    <div>
+    <React.Fragment>
       { goal ? <GoalRenderer /> : <CreateGoal onSetGoal={() => setGoal(readGoal())} />}
-      {/* <h1>Record Some Push Ups</h1> */}
-      {/* <Link to="/record"><Button variant="primary" size="lg">Record</Button></Link> */}
-    </div>
+    </React.Fragment>
   );
 }
 
@@ -171,6 +169,19 @@ const Record = function() {
     recordPushups(count);
     navigate('/');
   }, [count]);
+
+  const completedPushups = getTodayCount() + count;
+  const goal = getTodayGoal();
+  let message = '';
+  let messageVariant = 'success';
+  if (completedPushups < goal) {
+    message = `${goal - completedPushups} left to go!`;
+    messageVariant = 'primary';
+  } else if (completedPushups === goal) {
+    message = 'Goal achieved!';
+  } else {
+    message = 'You\'re killing it!';
+  }
 
   return (
     <React.Fragment>
@@ -194,10 +205,36 @@ const Record = function() {
       >
         <div className='counter display-1'>{ count }</div>
       </div>
+      <Alert variant={messageVariant} className='goalInfo'>{message}</Alert>
       <Button className='saveBtn' variant='success' size='sm' onClick={save}><Check size={48} /></Button>
     </React.Fragment>
   )
 }
+
+const Manual = () => {
+  const pushupsDoneRef = React.useRef<HTMLInputElement>();
+  const navigate = useNavigate();
+  const onSavePushups = useCallback(() => {
+    recordPushups(Number(pushupsDoneRef.current.value));
+    navigate('/');
+  }, []);
+  const goal = getTodayGoal();
+
+  return (
+    <React.Fragment>
+      <h1>Enter Your Pushups!</h1>
+      <p>Manually enter the number of pushups you did outside the app today</p>
+      <Form>
+        <Form.Group className="mb-3" controlId="goalStart">
+          <Form.Control type="number" defaultValue={goal} ref={pushupsDoneRef} />
+        </Form.Group>
+        <Button variant="success" size='lg' type="submit" onClick={onSavePushups}>
+          Save
+        </Button>
+      </Form>
+    </React.Fragment>
+  );
+};
 
 const About = function() {
   return (
@@ -208,21 +245,25 @@ const About = function() {
 const App = function() {
   return (
     <React.Fragment>
-      <Navbar bg="primary" variant="dark">
+      <Navbar bg="primary" variant="dark" expand="lg" collapseOnSelect>
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="#/">
             Mono Pushups
           </Navbar.Brand>
-          <Nav className="ms-auto">
-            <Link to="/" className="nav-link">Home</Link>
-            <Link to="/about" className="nav-link">About</Link>
-          </Nav>
+          <Navbar.Toggle />
+          <Navbar.Collapse>
+            <Nav className="ms-auto">
+              <Nav.Item><Link to="/" className="nav-link">Home</Link></Nav.Item>
+              <Nav.Item><Link to="/about" className="nav-link">About</Link></Nav.Item>
+            </Nav>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
       <div className='container mainContent'>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/record" element={<Record />} />
+          <Route path="/manual" element={<Manual />} />
           <Route path="about" element={<About />} />
         </Routes>
       </div>
