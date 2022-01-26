@@ -1,5 +1,6 @@
 import React from 'react';
 import ShareComponent from '../components/ShareComponent';
+import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import { setGoalData } from '../data/goals';
 
@@ -22,6 +23,8 @@ export default function Shared() {
   return (
     <React.Fragment>
       <ShareComponent name={name} gravatar={gravatar} goal={goal} increase={increase} onClick={setGoal} />
+      <p className='my-2 text-center'>or</p>
+      <Button href='/#' variant='secondary'>Set your own goal</Button>
     </React.Fragment>
   );
 }
