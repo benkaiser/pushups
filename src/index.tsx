@@ -1,3 +1,7 @@
+/// <reference no-default-lib="true"/>
+/// <reference lib="es2020" />
+/// <reference lib="dom" />
+
 import { Routes, Route, Link, HashRouter } from "react-router-dom";
 import About from "./screens/About";
 import Container from 'react-bootstrap/Container';
@@ -48,3 +52,7 @@ ReactDOM.render(
   </HashRouter>,
   document.getElementById('root')
 );
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./service-worker.js');
+}

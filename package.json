@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/esbuild src/index.tsx --bundle --outfile=static/bundle.js",
+    "build": "./node_modules/.bin/esbuild src/index.tsx src/service-worker.ts --bundle --outdir=./",
     "build-prod": "npm run build --- --minify",
     "build-watch": "npm run build -- --watch",
     "start": "npm run build-prod && npx http-server"
