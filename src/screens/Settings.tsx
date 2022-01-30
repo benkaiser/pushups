@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import bs5 from 'bs5-toast';
 
-const endpoint = 'http://localhost:8777';
+const endpoint = 'https://notification.kaiser.lol';
 function disableNotifications(): Promise<void> {
   return navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
     return serviceWorkerRegistration.pushManager
