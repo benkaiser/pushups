@@ -45,3 +45,13 @@ sw.addEventListener('fetch', (event: FetchEvent) => {
     );
   }
 });
+
+sw.addEventListener('push', function(e) {
+  var options = {
+    icon: 'https://benkaiser.github.io/pushups/static/icons/icon-512x512.png',
+    body: "Let's go!"
+  };
+  e.waitUntil(
+    sw.registration.showNotification('Pushup Time', options)
+  );
+});

@@ -5,6 +5,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import md5 from '../utils/md5';
 import React from 'react';
 import ShareComponent from '../components/ShareComponent';
+import bs5 from 'bs5-toast';
 
 function generateLink(name: string, goal: number, increase: number, gravatar?: string) {
   const pathWithoutQueryAndHash = window.location.href.split('#')[0].split('?')[0];
@@ -25,7 +26,12 @@ export default function Share() {
       });
     } else {
       navigator.clipboard.writeText(generatedLink).then(function() {
-        alert('Copied to clipboard');
+        new bs5.Toast({
+          body: 'Copied to clipboard',
+          className: 'border-0 bg-success text-white',
+          placement: 'bottom-right',
+          btnCloseWhite: true,
+        }).show();
       });
     }
   }, [generatedLink]);

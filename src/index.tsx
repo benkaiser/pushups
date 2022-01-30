@@ -2,7 +2,7 @@
 /// <reference lib="es2020" />
 /// <reference lib="dom" />
 
-import { Routes, Route, Link, HashRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import About from "./screens/About";
 import Container from 'react-bootstrap/Container';
 import Home from "./screens/Home";
@@ -12,8 +12,13 @@ import Navbar from 'react-bootstrap/Navbar';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Record from "./screens/Record";
+import Settings from "./screens/Settings";
 import Share from "./screens/Share";
 import Shared from "./screens/Shared";
+import toast from 'bootstrap/js/dist/toast';
+
+(window as any).bootstrap = { Toast: toast };
+
 
 const App = function() {
   return (
@@ -38,6 +43,7 @@ const App = function() {
           <Route path="/record" element={<Record />} />
           <Route path="/manual" element={<Manual />} />
           <Route path="/share" element={<Share />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="/shared" element={<Shared />} />
           <Route path="/about" element={<About />} />
         </Routes>
