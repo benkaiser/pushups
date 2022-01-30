@@ -24,7 +24,7 @@ export default function Shared() {
     <React.Fragment>
       <ShareComponent name={name} gravatar={gravatar} goal={goal} increase={increase} onClick={setGoal} />
       <p className='my-2 text-center'>or</p>
-      <Button href='/#' variant='secondary'>Set your own goal</Button>
+      <Button href='#/' variant='secondary'>Set your own goal</Button>
     </React.Fragment>
   );
 }
