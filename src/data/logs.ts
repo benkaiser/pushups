@@ -1,4 +1,5 @@
 import { dayNumber } from "../utils/daynumber";
+import { getTodayGoal } from "./goals";
 
 export interface ILogData {
   date: number;
@@ -30,4 +31,14 @@ export function getTodayCount() {
 
 export function recordPushups(numberOfPushups: number): void {
   addToLogData({date: +new Date(), numberOfPushups});
+
+  const count = getTodayCount();
+  const goal = getTodayGoal();
+  if (Notification.permission === 'granted' && count < goal) {
+    const notification = new Notification('Pushup Time', { body: `${goal - count} more to hit your daily goal` });
+    notification.onclick = function() {
+      window.focus();
+      this.close();
+    }
+  }
 }
