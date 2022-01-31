@@ -2,7 +2,8 @@
 /// <reference lib="es2020" />
 /// <reference lib="webworker" />
 
-const sw = self as unknown as ServiceWorkerGlobalScope & typeof globalThis
+const sw = self as unknown as ServiceWorkerGlobalScope & typeof globalThis;
+const swClients = sw.clients;
 
 const RUNTIME = 'runtime';
 
@@ -53,5 +54,23 @@ sw.addEventListener('push', function(e) {
   };
   e.waitUntil(
     sw.registration.showNotification('Pushup Time', options)
+  );
+});
+
+sw.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+  const rootUrl = location.origin + location.pathname.replace('service-worker.js', '');
+  event.notification.close();
+  // Enumerate windows, and call window.focus(), or open a new one.
+  event.waitUntil(
+    swClients.matchAll().then(matchedClients => {
+      for (let client of matchedClients) {
+        if (client.url.includes(rootUrl)) {
+          // @ts-ignore
+          return client.focus();
+        }
+      }
+      return swClients.openWindow("/");
+    })
   );
 });
