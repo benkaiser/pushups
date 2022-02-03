@@ -70,7 +70,7 @@ sw.addEventListener('notificationclick', function(event) {
           return client.focus();
         }
       }
-      return swClients.openWindow("/");
+      return swClients.openWindow(rootUrl);
     })
   );
 });
