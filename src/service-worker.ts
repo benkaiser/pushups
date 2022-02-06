@@ -11,7 +11,8 @@ const RUNTIME = 'runtime';
 const PRECACHE_URLS = [
   './',
   './index.js',
-  './static/main.css'
+  './static/main.css',
+  'https://notification.kaiser.lol/lib.js'
 ];
 
 // The install handler takes care of precaching the resources we always need.
@@ -24,7 +25,7 @@ sw.addEventListener('install', event => {
 });
 
 sw.addEventListener('fetch', (event: FetchEvent) => {
-  if (event.request.url.startsWith(self.location.origin) || event.request.url.includes('bootstrap')) {
+  if (event.request.url.startsWith(self.location.origin) || event.request.url.includes('bootstrap') || event.request.url.includes('https://notification.kaiser.lol/lib.js')) {
     event.respondWith(caches.match(event.request).then(cachedResponse => {
         const refetch = () => {
           return fetch(event.request).then(response => {
