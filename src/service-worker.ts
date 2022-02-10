@@ -61,7 +61,6 @@ sw.addEventListener('push', function(e) {
 sw.addEventListener('notificationclick', function(event) {
   event.notification.close();
   const rootUrl = location.origin + location.pathname.replace('service-worker.js', '');
-  event.notification.close();
   // Enumerate windows, and call window.focus(), or open a new one.
   event.waitUntil(
     swClients.matchAll().then(matchedClients => {

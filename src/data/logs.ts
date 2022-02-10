@@ -34,11 +34,13 @@ export function recordPushups(numberOfPushups: number): void {
 
   const count = getTodayCount();
   const goal = getTodayGoal();
-  if (Notification.permission === 'granted' && count < goal) {
+  if (Notification.permission === 'granted') {
     navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
       serviceWorkerRegistration.getNotifications().then(notifications => {
         notifications.forEach(notification => notification.close());
-        serviceWorkerRegistration.showNotification('Pushup Time', { body: `${goal - count} more to hit your daily goal` })
+        if (count < goal) {
+          serviceWorkerRegistration.showNotification('Pushup Time', { body: `${goal - count} more to hit your daily goal` })
+        }
       });
     });
   }
