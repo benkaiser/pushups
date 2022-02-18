@@ -34,7 +34,7 @@ export function getTodayGoal() {
 export function getAllTimeGoal() {
   const goal = readGoal();
   const dayDiff = daysSinceStart();
-  return Array.from({ length: dayDiff }).reduce<number>((counter, _, index) => counter + goal.goalStart + index * goal.goalIncrease, 0);
+  return Array.from({ length: dayDiff + 1 }).reduce<number>((counter, _, index) => counter + goal.goalStart + index * goal.goalIncrease, 0);
 }
 
 export function goalForDay(day: number) {
