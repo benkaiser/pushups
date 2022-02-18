@@ -53,9 +53,16 @@ html, body, #root {
   padding-left: 5px;
   padding-right: 5px;
 }
-a .btn {
-  text-decoration: none;
+a .btn,
+a:link .btn,
+a:visited .btn,
+a:hover .btn,
+a:active .btn{
+    text-decoration: none;
 }
 .shareImage {
   border-radius: 5px;
+}
+.alltime {
+  font-size: 1.5em;
 }

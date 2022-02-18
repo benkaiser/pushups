@@ -12,10 +12,12 @@
   "author": "Benjamin Kaiser",
   "license": "MIT",
   "dependencies": {
+    "apexcharts": "^3.33.1",
     "bootstrap": "^5.1.3",
     "bs5-toast": "^1.0.0",
     "esbuild": "^0.14.12",
     "react": "^17.0.2",
+    "react-apexcharts": "^1.3.9",
     "react-bootstrap": "^2.1.1",
     "react-bootstrap-icons": "^1.7.2",
     "react-dom": "^17.0.2",

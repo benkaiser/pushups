@@ -5,6 +5,7 @@
 import { Routes, Route, HashRouter } from "react-router-dom";
 import About from "./screens/About";
 import Container from 'react-bootstrap/Container';
+import History from "./screens/History";
 import Home from "./screens/Home";
 import Manual from "./screens/manual";
 import Nav from 'react-bootstrap/Nav';
@@ -42,6 +43,7 @@ const App = function() {
           <Route path="/" element={<Home />} />
           <Route path="/record" element={<Record />} />
           <Route path="/manual" element={<Manual />} />
+          <Route path="/history" element={<History />} />
           <Route path="/share" element={<Share />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/shared" element={<Shared />} />

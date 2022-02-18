@@ -1,4 +1,4 @@
-import { getTodayGoal, getIncrease } from '../data/goals';
+import { getTodayGoal, getGoalIncrease } from '../data/goals';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -17,7 +17,7 @@ export default function Share() {
   const [name, setName] = React.useState('John');
   const [gravatar, setGravatar] = React.useState(undefined);
   const goal = getTodayGoal();
-  const increase = getIncrease();
+  const increase = getGoalIncrease();
   const generatedLink = generateLink(name, goal, increase, gravatar);
   const shareLink = React.useCallback(() => {
     if (navigator.share && typeof navigator.share === 'function') {

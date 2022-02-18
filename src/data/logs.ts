@@ -20,13 +20,23 @@ export function addToLogData(newLogData: ILogData) {
   localStorage.setItem('logData', JSON.stringify(logData));
 }
 
-export function getTodayCount() {
+export function getAllCount() {
   const logs = readLogData();
-  const today = dayNumber(+new Date());
   const pushupsDone = logs
-    .filter((log) => today == dayNumber(log.date))
-    .reduce((previousValue: number, currentValue) => { return previousValue + currentValue.numberOfPushups }, 0);
+    .reduce((previousValue: number, currentValue) => previousValue + currentValue.numberOfPushups, 0);
   return pushupsDone;
+}
+
+export function getLogCountForDayNumebr(day: number) {
+  const logs = readLogData();
+  const pushupsDone = logs
+    .filter((log) => day == dayNumber(log.date))
+    .reduce((previousValue: number, currentValue) => previousValue + currentValue.numberOfPushups, 0);
+  return pushupsDone;
+}
+
+export function getTodayCount() {
+  return getLogCountForDayNumebr(dayNumber(+new Date()));
 }
 
 export function recordPushups(numberOfPushups: number): void {

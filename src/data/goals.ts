@@ -19,15 +19,41 @@ export function setGoalData(goalData: Omit<IGoalData, 'startDay'>) {
   localStorage.setItem('goal', JSON.stringify({ ...goalData, startDay: startDay }));
 }
 
-export function getTodayGoal() {
+export function daysSinceStart() {
   const goal = readGoal();
   const today = dayNumber(+new Date());
-  const dayDiff =  today - goal.startDay;
-  const todaysGoal = goal.goalStart + goal.goalIncrease * dayDiff;
-  return todaysGoal;
+  return today - goal.startDay;
 }
 
-export function getIncrease() {
+export function getTodayGoal() {
+  const goal = readGoal();
+  const dayDiff = daysSinceStart();
+  return goal.goalStart + goal.goalIncrease * dayDiff;
+}
+
+export function getAllTimeGoal() {
+  const goal = readGoal();
+  const dayDiff = daysSinceStart();
+  return Array.from({ length: dayDiff }).reduce<number>((counter, _, index) => counter + goal.goalStart + index * goal.goalIncrease, 0);
+}
+
+export function goalForDay(day: number) {
+  const goal = readGoal();
+  const dayDiff = day - goal.startDay;
+  return goal.goalStart + goal.goalIncrease * dayDiff;
+}
+
+export function getGoalStartDay() {
+  const goal = readGoal();
+  return goal.startDay;
+}
+
+export function getGoalIncrease() {
   const goal = readGoal();
   return goal.goalIncrease;
+}
+
+export function getGoalStart() {
+  const goal = readGoal();
+  return goal.goalStart;
 }
