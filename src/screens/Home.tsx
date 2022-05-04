@@ -1,7 +1,7 @@
 import { getTodayCount } from '../data/logs';
 import { getTodayGoal, readGoal } from '../data/goals';
 import { Link } from "react-router-dom";
-import { Calendar, Calculator, RecordCircle, Share, Bell } from 'react-bootstrap-icons';
+import { Calendar, Calculator, RecordCircle, Share, Gear } from 'react-bootstrap-icons';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import CreateGoal from './CreateGoal';
@@ -46,7 +46,7 @@ function GoalRenderer() {
         <Link className='d-flex text-decoration-none' to="/history"><Button className='flex-grow-1' variant="secondary" size="lg"><Calendar size={24} className='me-2' /> History</Button></Link>
       </p>
       <p className='d-flex mt-auto'>
-        <Button href="#/settings" className='flex-grow-1' variant="info" size="lg"><Bell size={24} className='me-2' /> Notifications Settings</Button>
+        <Button href="#/settings" className='flex-grow-1' variant="info" size="lg"><Gear size={24} className='me-2' /> Settings</Button>
       </p>
       <p className='d-flex'>
         <Button href="#/share" className='flex-grow-1' variant="info" size="lg"><Share size={24} className='me-2' /> Share Goal</Button>

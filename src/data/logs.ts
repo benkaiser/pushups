@@ -14,6 +14,10 @@ export function readLogData(): ILogData[] {
   }
 }
 
+export function setLogDataRaw(logData: ILogData[]) {
+  localStorage.setItem('logData', JSON.stringify(logData));
+}
+
 export function addToLogData(newLogData: ILogData) {
   const logData = readLogData();
   logData.push(newLogData);

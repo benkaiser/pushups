@@ -2,6 +2,7 @@ import { setGoalData } from '../data/goals';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import React from 'react';
+import { importData } from './Settings';
 
 interface ICreateGoalProps {
   onSetGoal: () => void;
@@ -34,6 +35,9 @@ export default function CreateGoal(props: ICreateGoalProps) {
           Let's Go!
         </Button>
       </Form>
+
+      <h3 className='mt-4'>Have a previous export?</h3>
+      <Button variant='secondary' className='mb-2' onClick={() => importData().then(_ => props.onSetGoal())}>Import data</Button>
     </React.Fragment>
   );
 }
