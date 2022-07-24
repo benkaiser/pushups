@@ -45,6 +45,9 @@ function GoalRenderer() {
       <p>
         <Link className='d-flex text-decoration-none' to="/history"><Button className='flex-grow-1' variant="secondary" size="lg"><Calendar size={24} className='me-2' /> History</Button></Link>
       </p>
+      <p>
+        <Link className='d-flex text-decoration-none' to="/logs"><Button className='flex-grow-1' variant="secondary" size="lg"><Calendar size={24} className='me-2' /> Log</Button></Link>
+      </p>
       <p className='d-flex mt-auto'>
         <Button href="#/settings" className='flex-grow-1' variant="info" size="lg"><Gear size={24} className='me-2' /> Settings</Button>
       </p>

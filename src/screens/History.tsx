@@ -5,7 +5,7 @@ import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 import { dayNumber } from '../utils/daynumber';
 import { ApexOptions } from 'apexcharts';
-import { ButtonGroup } from 'react-bootstrap';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 type IMode = 'week' | 'month' | 'all';
 

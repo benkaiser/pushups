@@ -1,7 +1,3 @@
-/// <reference no-default-lib="true"/>
-/// <reference lib="es2020" />
-/// <reference lib="dom" />
-
 import { Routes, Route, HashRouter } from "react-router-dom";
 import About from "./screens/About";
 import Container from 'react-bootstrap/Container';
@@ -17,6 +13,7 @@ import Settings from "./screens/Settings";
 import Share from "./screens/Share";
 import Shared from "./screens/Shared";
 import toast from 'bootstrap/js/dist/toast';
+import Logs from "./screens/Logs";
 
 (window as any).bootstrap = { Toast: toast };
 
@@ -44,6 +41,7 @@ const App = function() {
           <Route path="/record" element={<Record />} />
           <Route path="/manual" element={<Manual />} />
           <Route path="/history" element={<History />} />
+          <Route path="/logs" element={<Logs />} />
           <Route path="/share" element={<Share />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/shared" element={<Shared />} />

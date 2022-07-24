@@ -24,6 +24,11 @@ export function addToLogData(newLogData: ILogData) {
   localStorage.setItem('logData', JSON.stringify(logData));
 }
 
+export function deleteLog(log: ILogData) {
+  const logs: ILogData[] = readLogData();
+  setLogDataRaw(logs.filter(storedLog => storedLog.date != log.date));
+}
+
 export function getAllCount() {
   const logs = readLogData();
   const pushupsDone = logs
@@ -31,16 +36,22 @@ export function getAllCount() {
   return pushupsDone;
 }
 
-export function getLogCountForDayNumebr(day: number) {
+export function getLogsForDayNumebr(day: number): ILogData[] {
   const logs = readLogData();
-  const pushupsDone = logs
-    .filter((log) => day == dayNumber(log.date))
+  return logs.filter((log) => day == dayNumber(log.date));
+}
+
+export function getLogCountForDayNumebr(day: number): number {
+  return getLogsForDayNumebr(day)
     .reduce((previousValue: number, currentValue) => previousValue + currentValue.numberOfPushups, 0);
-  return pushupsDone;
 }
 
 export function getTodayCount() {
   return getLogCountForDayNumebr(dayNumber(+new Date()));
+}
+
+export function getTodayLogs() {
+  return getLogsForDayNumebr(dayNumber(+new Date()));
 }
 
 export function recordPushups(numberOfPushups: number): void {

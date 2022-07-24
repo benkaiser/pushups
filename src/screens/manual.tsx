@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 
 export default function Manual() {
