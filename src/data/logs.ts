@@ -64,7 +64,11 @@ export function recordPushups(numberOfPushups: number): void {
       serviceWorkerRegistration.getNotifications().then(notifications => {
         notifications.forEach(notification => notification.close());
         if (count < goal) {
-          serviceWorkerRegistration.showNotification('Pushup Time', { body: `${goal - count} more to hit your daily goal` })
+          serviceWorkerRegistration.showNotification('Pushup Time', {
+            icon: 'https://benkaiser.github.io/pushups/static/icons/icon-512x512.png',
+            badge: 'https://benkaiser.github.io/pushups/static/icons/badge-72x72.png',
+            body: `${goal - count} more to hit your daily goal`
+          });
         }
       });
     });
