@@ -2,7 +2,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import bs5 from 'bs5-toast';
-import { readLogData, setLogDataRaw } from '../data/logs';
+import { getDayOffsetMinutes, readLogData, setDayOffsetMinutes, setLogDataRaw } from '../data/logs';
 import { readGoal, setGoalDataRaw } from '../data/goals';
 import dayjs from 'dayjs';
 
@@ -65,10 +65,11 @@ export function importData(): Promise<void> {
 }
 
 export default function Settings() {
-  const timeRef = React.useRef<HTMLInputElement>();
+  const timeRef = React.useRef<HTMLInputElement>(null);
+  const cycleRef = React.useRef<HTMLInputElement>(null);
   const [notificationsEnabled, setNotificationsEnabled] = React.useState(false);
   const enableNotificationsClick = React.useCallback(() => {
-    const [chosenHours, chosenMinutes] = timeRef.current.value.split(':');
+    const [chosenHours, chosenMinutes] = timeRef.current!.value.split(':');
     (window as any).notificationScheduler({
       interval: `${chosenMinutes} ${chosenHours} * * *`,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -93,6 +94,10 @@ export default function Settings() {
       }).show();
     });
   }, [notificationsEnabled]);
+  const updateTimeOfDay = React.useCallback(() => {
+    const [chosenHours, chosenMinutes] = cycleRef.current!.value.split(':');
+    setDayOffsetMinutes(parseInt(chosenHours) * 60 + parseInt(chosenMinutes));
+  }, []);
   const disableNotificationsClick = React.useCallback(() => {
     disableNotifications();
   }, []);
@@ -107,6 +112,10 @@ export default function Settings() {
       });
     });
   });
+  const offset = getDayOffsetMinutes();
+  const hours = Math.floor(offset / 60).toString().padStart(2, '0');
+  const minutes = (offset % 60).toString().padStart(2, '0');
+  const hoursAndMinutes = `${hours}:${minutes}`;
   return (
     <React.Fragment>
       <h2>Notifications</h2>
@@ -125,6 +134,19 @@ export default function Settings() {
       </Form>
       <Button variant='primary' className='mb-2' onClick={enableNotificationsClick}>{ notificationsEnabled ? 'Update Notifications' : 'Enable Notifications' }</Button>
       <Button variant='danger' onClick={disableNotificationsClick}>Disable Notifications</Button>
+      <h2 className='mt-4'>Day Change Time</h2>
+      <p>By default, you have from midnight to midnight. But if you prefer to cycle your day at a different time, you can change it here.</p>
+      <Form>
+        <Form.Group className="mb-3" controlId="name">
+          <Form.Label>Time of Day</Form.Label>
+          <Form.Control
+            type="time"
+            defaultValue={hoursAndMinutes}
+            ref={cycleRef}
+            onChange={updateTimeOfDay}
+          />
+        </Form.Group>
+      </Form>
       <h2 className='mt-4'>Data</h2>
       <Button variant='secondary' className='mb-2' onClick={exportData}>Export data</Button>
       <Button variant='secondary' className='mb-2' onClick={importData}>Import data</Button>

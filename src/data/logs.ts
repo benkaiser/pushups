@@ -74,3 +74,11 @@ export function recordPushups(numberOfPushups: number): void {
     });
   }
 }
+
+export function setDayOffsetMinutes(offset: number) {
+  localStorage.setItem('offsetInMinutes', offset.toString());
+}
+
+export function getDayOffsetMinutes() {
+  return Number(localStorage.getItem('offsetInMinutes')) || 0;
+}
