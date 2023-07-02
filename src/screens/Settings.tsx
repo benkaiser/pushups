@@ -101,6 +101,12 @@ export default function Settings() {
   const disableNotificationsClick = React.useCallback(() => {
     disableNotifications();
   }, []);
+  const confirmDelete = React.useCallback(() => {
+    if (window.confirm('Are you sure you want to delete all your data?')) {
+      localStorage.clear();
+      window.location.href = window.location.pathname;
+    }
+  }, []);
   React.useEffect(() => {
     navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
       return serviceWorkerRegistration.pushManager
@@ -150,6 +156,8 @@ export default function Settings() {
       <h2 className='mt-4'>Data</h2>
       <Button variant='secondary' className='mb-2' onClick={exportData}>Export data</Button>
       <Button variant='secondary' className='mb-2' onClick={importData}>Import data</Button>
+      <h2 className='mt-4'>Danger Zone</h2>
+      <Button variant='danger' className='mb-2' onClick={confirmDelete}>Delete all data / Reset app</Button>
     </React.Fragment>
   );
 }
